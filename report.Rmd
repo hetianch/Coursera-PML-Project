@@ -24,11 +24,10 @@ library(corrplot)
 
 In this step, we deleted the observations with missing data and delete the attributes that are not likely to 
 contribute to the prediction. At last, we got a clean training set with 19622 observations and 53 variables
+
 ```{r, cache = T}
 trainRaw <- read.csv("data/pml-training.csv")
 testRaw <- read.csv("data/pml-testing.csv")
-dim(trainRaw)
-dim(testRaw)
 sum(complete.cases(trainRaw))
 trainRaw <- trainRaw[, colSums(is.na(trainRaw)) == 0] 
 testRaw <- testRaw[, colSums(is.na(testRaw)) == 0]
@@ -40,14 +39,31 @@ trainCleaned$classe <- classe
 testRemove <- grepl("^X|timestamp|window", names(testRaw))
 testRaw <- testRaw[, !testRemove]
 testCleaned <- testRaw[, sapply(testRaw, is.numeric)]
+dim(trainCleaned)
+dim(testCleaned)
 ```
 
-## Data Modeling and evaluation on 5-fold cross validation 
+## Data Modeling and Evaluation on 3-fold Cross Validation 
+
 **Random Forest** algorithm was chosen in this task becuase it's robust to correlated covariates and outliers.
-A **5-fold cross validation** was applied on the "train" set to evaluate the performance of the algorithm. 
+A **3-fold cross validation** was applied on the "train" set to evaluate the performance of the algorithm. According to the results, the estimated out-of sample error is about
 
 ```{r, cache = T}
-controlRf <- trainControl(method="cv", 5)
+controlRf <- trainControl(method="cv", 3)
 modelRf <- train(classe ~ ., data=trainCleaned, method="rf", trControl=controlRf, ntree=250)
 modelRf
 ```
+
+## Make Prediction of the Test Data Set
+
+```{r, cache = T}
+result <- predict(modelRf, testCleaned[, -length(names(testCleaned))])
+result
+```  
+
+
+
+
+
+
+
