@@ -44,7 +44,7 @@ dim(testCleaned)
 ## Data Modeling and Evaluation on 3-fold Cross Validation 
 
 **Random Forest** algorithm was chosen in this task becuase it's robust to correlated covariates and outliers.
-A **3-fold cross validation** was applied on the "train" set to evaluate the performance of the algorithm. According to the results, the estimated out-of sample error is about
+A **3-fold cross validation** was applied on the "train" set to evaluate the performance of the algorithm. According to the results, the estimated out-of sample error is about 0.01.
 
 ```{r, cache = T}
 controlRf <- trainControl(method="cv", 3)

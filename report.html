@@ -107,7 +107,7 @@ dim(trainCleaned)</code></pre>
 </div>
 <div id="data-modeling-and-evaluation-on-3-fold-cross-validation" class="section level2">
 <h2>Data Modeling and Evaluation on 3-fold Cross Validation</h2>
-<p><strong>Random Forest</strong> algorithm was chosen in this task becuase it’s robust to correlated covariates and outliers. A <strong>3-fold cross validation</strong> was applied on the “train” set to evaluate the performance of the algorithm. According to the results, the estimated out-of sample error is about</p>
+<p><strong>Random Forest</strong> algorithm was chosen in this task becuase it’s robust to correlated covariates and outliers. A <strong>3-fold cross validation</strong> was applied on the “train” set to evaluate the performance of the algorithm. According to the results, the estimated out-of sample error is about 0.01</p>
 <pre class="r"><code>controlRf &lt;- trainControl(method=&quot;cv&quot;, 3)
 modelRf &lt;- train(classe ~ ., data=trainCleaned, method=&quot;rf&quot;, trControl=controlRf, ntree=250)
 modelRf</code></pre>
